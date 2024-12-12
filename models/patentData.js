@@ -2,31 +2,48 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const patentDataSchema = new Schema({
-    firstName: { 
+    documentNumber: { 
         type: String, 
         lowercase: true, 
         trim: true,
         required: true 
     },
-    lastName: { 
+    title: { 
         type: String, 
         lowercase: true, 
         trim: true,
         required: true 
     },
-    email: {
+    applicationNumber: {
         type: String,
-        unique: true,
-        trim: true,
-        lowercase: true,
-        required: true
     },
-    password: {
+    publicationNumber: {
         type: String,
-        trim: true,
-        minLength: 5,
-        required: true
-    }
+    },
+    dateSubmitted: {
+        type: String,
+    },
+    publicationDate: {
+        type: String,
+    },
+    issueDate: {
+        type: String,
+    },
+    assigneeList: {
+        type: Array,
+    },
+    inventorList: {
+        type: Array,
+    },
+    abstract: {
+        type: String,
+    },
+    description: {
+        type: Array,
+    },
+    claims: {
+        type: Array,
+    },
 }, {
     timestamps: true,
 });

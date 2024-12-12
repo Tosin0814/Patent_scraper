@@ -40,7 +40,9 @@ export default function PatentSearchForm() {
                         <label htmlFor='patentIdStart'>Enter Range Start</label>
                         <input onChange={handleChange} type="number" name='patentIdStart' id='patentIdStart' className='form-control' placeholder='Start'/>
                     </div>
-                    <div className='separator'>-</div>
+                    <div className='separator'>
+                        -
+                    </div>
                     <div className='startRange'>
                         <label htmlFor='patentIdEnd'>Enter Range End</label>
                         <input onChange={handleChange} type="number" name='patentIdEnd' id='patentIdEnd' className='form-control' placeholder='End'/>
