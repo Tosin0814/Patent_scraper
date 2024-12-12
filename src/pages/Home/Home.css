@@ -1,181 +1,18 @@
 .Home {
     height:100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    /* background-color: pink; */
 }
 
-.Home .menuBar {
-    height: 40px;
-    background-color: #FFFFFF;
-    display: flex;
-    align-items: center;
-    margin: 2px 0px;
-    padding: 0px 10px 0px 0px;
-}
-
-.Home .menuBar .newProjectSection {
-    width: 17.5vw;
-    padding: 2px 0px 2px 2px;
-    text-align: center;
-}
-
-.Home .menuBar .newProjectSection .newProjectItem {
-    height: 100%;
-    border-right: 2px solid #F6F7F9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #1A5E9B;
-    cursor: pointer;
-}
-
-.Home .menuBar .newProjectSection .newProjectItem:hover {
-    background-color: #F6F7F9;
-}
-
-.Home .menuBar .documentSearch {
-    max-width: 65vw;
+.Home .documentSearch {
+    width: 100%;
     height: 100%;
     display: flex;
     flex-grow: 1;
     align-items: center;
     justify-content: flex-start;
     padding-left: 10px;
-}
-
-.Home .menuBar .tools {
-    width: 17.5vw;
-    height: 80%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-}
-
-.Home .menuBar .tools button.toggleProjectFeatures {
-    color: #262626;
-    background-color: rgba(26, 56, 96, 0.08);
-    font-weight: 600;
-    max-height: 100%;
-    font-size: 13px;
-    width: 150px;
-    border-radius: 7.5px;
-    margin-right: 20px;
-}
-
-.Home .menuBar .tools button.toggleProjectFeatures:hover {
-    background-color: rgba(26, 56, 96, 0.1);
-}
-
-.Home .menuBar .tools .aiAssistant.tooltipContainer .tooltiptext {
-    width: 100px;
-    left: -150%;
-}
-
-.Home .menuBar .tools .aiAssistant.tooltipContainer .tooltiptext::after {
-    left: 80%;
-}
-
-.Home .menuBar .tools .multiTextHighlighterContainer.tooltipContainer .tooltiptext {
-    width: 100px;
-    left: -200%;
-}
-
-.Home .menuBar .tools .multiTextHighlighterContainer.tooltipContainer .tooltiptext::after {
-    left: 80%;
-}
-
-.Home .mainSection {
-    height: 100%;
-    display: flex;
-    overflow-y: auto;
-}
-
-.Home .mainSection .projectSection {
-    width: 17.5vw;
-    height: 100%;
-    overflow-y: visible;
-    background-color: #FFFFFF;
-    padding: 5px 10px;
-}
-
-.Home .mainSection .documentSection {
-    /* Width is also being controlled by handleWidthAdjust */
-    min-width: 65vw;
-    max-width: 82.5vw;
-    height: 100%;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 5px 10px 0px 10px;
-    position: relative;
-}
-
-.Home .mainSection .documentSection .annotationBar {
-    width: 100%;
-    background-color: #FFFFFF;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 7.5px;
-}
-
-.Home .mainSection .documentSection .documentContainer {
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
-    display: flex;
-    justify-content: space-between;
-    padding-top: 5px;
-}
-
-.Home .mainSection .documentSection .documentContainer .documentContent {
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
-}
-
-.Home .mainSection .documentSection .documentContainer .galleryContent {
-    width: 60%;
-    height: 100%;
-    overflow-y: auto;
-    margin-left: 5px;
-    position: relative;
-}
-
-.Home .mainSection .documentSection .documentContainer .pdfContent {
-    width: 60%;
-    height: 100%;
-    overflow-y: auto;
-    margin-left: 5px;
-    position: relative;
-}
-
-.Home .mainSection .featuresSection {
-    width: 17.5vw;
-    height: 100%;
-    overflow-y: auto;
-    padding: 5px 5px;
-}
-
-.Home .mainSection .featuresSection .projectElements {
-    width: 100%;
-    height: 100%;
-    background-color: rgb(26, 94, 155, 0.13);
-    padding: 10px 10px;
-    border-radius: 12.5px;
-    display: flex;
-    flex-direction: column;
-}
-
-.Home .mainSection .featuresSection .projectElements h5 {
-    font-size: 16px;
-    font-weight: 600;
-    color: #104B81;
-}
-
-.Home .mainSection .featuresSection .projectElements .projectElementsContent {
-    overflow-y: auto;
 }
