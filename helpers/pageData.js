@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const fetch = require("node-fetch");
+// const fetch = require("node-fetch");
 const cheerio = require('cheerio');
 
 // const puppeteer = require('puppeteer');
@@ -21,21 +21,9 @@ const removeOriginalLanguageRegex = /<span class="google-src-text">[\s\S]*?<\/sp
 
 // function to get the raw data
 const getRawPatentData = async (URL) => {
-    return fetch(URL)
-        .then((response) => response.text())
-        .then((data) => {
-            // console.log(cheerio.load(data).html())
-            return cheerio.load(data)
-        })
-        .then((data) => {
-            return data;
-        });
-};
-
-const getNonPatentData = async (url) => {
     console.log("Opening the browser......");
     const browser = await puppeteer.launch({
-        headless: true,
+        headless: false,
         args: [
             '--ignore-certificate-errors',
             '--no-sandbox',
@@ -47,36 +35,81 @@ const getNonPatentData = async (url) => {
         'ignoreHTTPSErrors': true,
     });
     const page = await browser.newPage();
-    await page.goto(url);
+    // await page.goto(URL);
+    await page.goto(URL, { waitUntil: 'networkidle2' });
     console.log("Waiting for the page to load......");
-    await page.waitForSelector('body');
+    // await page.waitForSelector('body');
+    const content = await page.content();
     console.log("Page loaded successfully......");
 
-    const npd = await page.evaluate(() => {
-        const data = document.querySelector('body').innerHTML;
-        return data;
-    }
-    );
+    // const data = await page.evaluate(() => {
+    //     const data = document.querySelector('body').innerHTML;
+    //     return data;
+    // });
     console.log("Closing the browser......");
     await browser.close();
-    return npd;
-}
+
+    console.log(cheerio.load(content).html())
+    return cheerio.load(content);
+
+
+    // return fetch(URL)
+    //     .then((response) => response.text())
+    //     .then((data) => {
+    //         // console.log(cheerio.load(data).html())
+    //         return cheerio.load(data)
+    //     })
+    //     .then((data) => {
+    //         return data;
+    //     });
+};
+
+// const getNonPatentData = async (url) => {
+//     console.log("Opening the browser......");
+//     const browser = await puppeteer.launch({
+//         headless: true,
+//         args: [
+//             '--ignore-certificate-errors',
+//             '--no-sandbox',
+//             '--disable-setuid-sandbox',
+//             '--window-size=1920,1080',
+//             "--disable-accelerated-2d-canvas",
+//             "--disable-gpu",
+//         ],
+//         'ignoreHTTPSErrors': true,
+//     });
+//     const page = await browser.newPage();
+//     await page.goto(url);
+//     console.log("Waiting for the page to load......");
+//     await page.waitForSelector('body');
+//     console.log("Page loaded successfully......");
+
+//     const npd = await page.evaluate(() => {
+//         const data = document.querySelector('body').innerHTML;
+//         return data;
+//     }
+//     );
+//     console.log("Closing the browser......");
+//     await browser.close();
+//     return npd;
+// }
 
 // start of the program
+
 const pageData = async (userInput) => {
     // userInput = userInput.replaceAll(' ', '')
     // URL for data
     userInput = userInput.toUpperCase().replaceAll(' ', '')
-        // This conditional block is to handle US patent numbers that are missing a zero after the first four digits
-        if (userInput.startsWith('US')) {
-            const numbers = userInput.match(/\d+/g)
-            if (numbers[0] && numbers[0].length === 10) {
-                const numbersArray = numbers[0].split('')
-                numbersArray.splice(4, 0, '0')
-                userInput = userInput.replace(/\d{3,}/g, numbersArray.join(''))
-            }
-        }
-        const URL = `https://patents.google.com/patent/${userInput}/en?oq=${userInput}`;
+        // // This conditional block is to handle US patent numbers that are missing a zero after the first four digits
+        // if (userInput.startsWith('US')) {
+        //     const numbers = userInput.match(/\d+/g)
+        //     if (numbers[0] && numbers[0].length === 10) {
+        //         const numbersArray = numbers[0].split('')
+        //         numbersArray.splice(4, 0, '0')
+        //         userInput = userInput.replace(/\d{3,}/g, numbersArray.join(''))
+        //     }
+        // }
+        const URL = `https://patents.google.com/patent/US${userInput}/en?oq=US${userInput}`;
         // const URL = `https://patents.google.com/patent/${userInput}`;
         
         // Parsing the data
@@ -89,10 +122,6 @@ const pageData = async (userInput) => {
         const title = parsedPageData("[name='DC.title']").attr('content')
 
 
-        // Patent PDF File
-        const patentPDF = parsedPageData("[name='citation_pdf_url']").attr('content')
-
-    
         // APPLICATION NUMBER
         const applicationNumber = parsedPageData("[name='citation_patent_application_number']").attr('content')
         

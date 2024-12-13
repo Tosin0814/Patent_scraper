@@ -23,14 +23,14 @@ if( process.env.NODE_ENV === 'production'){
 // Mount Custom Middleware
 
 // API routes here
-app.use('/api/patent', patentRouter)
+app.use('/api/patents', patentRouter)
 
 // "Catch all" route
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-const port = process.env.PORT || 3006;
+const port = process.env.PORT || 3001;
 
 app.listen(port, function() {
   console.log(`Express app running on port ${port}`);

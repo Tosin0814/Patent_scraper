@@ -18,13 +18,13 @@ export default function PatentSearchForm() {
     const handleSubmit = async (evt) => {
         evt.preventDefault()
         // const cleanedFormData = {...formData, patentId: formData.patentId.replaceAll(' ', '')}
-        // try {
-        //     const patentData = await postPatentId(cleanedFormData)
-        //     // console.log(patentData)
-        // } catch (err) {
-        //     console.log(err)
-        //     // await updateDocument({classification: null})
-        // }
+        try {
+            const patentData = await postPatentId(formData)
+            console.log(patentData)
+        } catch (err) {
+            console.log(err)
+            // await updateDocument({classification: null})
+        }
         console.log(formData)
     }
     const disabled = !formData.patentIdEnd || !formData.patentIdStart || (parseInt(formData.patentIdStart) >= parseInt(formData.patentIdEnd))

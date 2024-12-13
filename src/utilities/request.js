@@ -1,4 +1,4 @@
-import { getToken } from "./services/users";
+// import { getToken } from "./services/users";
 
 export async function sendRequest(url, method ='GET', payload = null, error = 'Bad Request'){
 
@@ -10,12 +10,12 @@ export async function sendRequest(url, method ='GET', payload = null, error = 'B
         options.body = JSON.stringify(payload)
     }
 
-    const token = getToken()
+    // const token = getToken()
 
-    if(token){
-        options.headers ||= {}
-        options.headers.Authorization = `Bearer ${token}`
-    }
+    // if(token){
+    //     options.headers ||= {}
+    //     options.headers.Authorization = `Bearer ${token}`
+    // }
 
     const res = await fetch(url, options);
 
