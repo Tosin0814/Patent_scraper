@@ -10,6 +10,9 @@ export default function PatentSearchForm() {
     const [failedScrapes, setFailedScrapes] = useState([])
     // const formReg = /([A-Z|a-z]{2}(\d+)[A-Z|a-z]{1,})/g
     const [formData, setFormData] = useState({})
+
+    const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
     const handleChange = (evt) => {
         const newFormData = {
             ...formData, // use the existing formData
@@ -33,6 +36,9 @@ export default function PatentSearchForm() {
                 console.log(err)
                 setFailedScrapes((prev) => [...prev, patNumStr])
             }
+            // Wait 10 seconds between each scrape
+            await sleep(10000);
+            console.log('Awake')
         }
 
     }
