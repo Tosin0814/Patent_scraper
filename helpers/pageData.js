@@ -38,63 +38,12 @@ const getRawPatentData = async (URL) => {
     // await page.goto(URL);
     await page.goto(URL, { waitUntil: 'networkidle2' });
     console.log("Waiting for the page to load......");
-    // await page.waitForSelector('body');
     const content = await page.content();
     console.log("Page loaded successfully......");
-
-    // const data = await page.evaluate(() => {
-    //     const data = document.querySelector('body').innerHTML;
-    //     return data;
-    // });
     console.log("Closing the browser......");
     await browser.close();
-
-    // console.log(cheerio.load(content).html())
     return cheerio.load(content);
-
-
-    // return fetch(URL)
-    //     .then((response) => response.text())
-    //     .then((data) => {
-    //         // console.log(cheerio.load(data).html())
-    //         return cheerio.load(data)
-    //     })
-    //     .then((data) => {
-    //         return data;
-    //     });
 };
-
-// const getNonPatentData = async (url) => {
-//     console.log("Opening the browser......");
-//     const browser = await puppeteer.launch({
-//         headless: true,
-//         args: [
-//             '--ignore-certificate-errors',
-//             '--no-sandbox',
-//             '--disable-setuid-sandbox',
-//             '--window-size=1920,1080',
-//             "--disable-accelerated-2d-canvas",
-//             "--disable-gpu",
-//         ],
-//         'ignoreHTTPSErrors': true,
-//     });
-//     const page = await browser.newPage();
-//     await page.goto(url);
-//     console.log("Waiting for the page to load......");
-//     await page.waitForSelector('body');
-//     console.log("Page loaded successfully......");
-
-//     const npd = await page.evaluate(() => {
-//         const data = document.querySelector('body').innerHTML;
-//         return data;
-//     }
-//     );
-//     console.log("Closing the browser......");
-//     await browser.close();
-//     return npd;
-// }
-
-// start of the program
 
 const pageData = async (userInput) => {
     // userInput = userInput.replaceAll(' ', '')

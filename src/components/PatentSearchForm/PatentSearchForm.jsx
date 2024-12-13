@@ -38,7 +38,6 @@ export default function PatentSearchForm() {
             }
             // Wait 10 seconds between each scrape
             await sleep(10000);
-            console.log('Awake')
         }
 
     }
