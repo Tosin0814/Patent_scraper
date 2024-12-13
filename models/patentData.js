@@ -4,9 +4,10 @@ const Schema = mongoose.Schema;
 const patentDataSchema = new Schema({
     documentNumber: { 
         type: String, 
-        lowercase: true, 
+        uppercase: true, 
         trim: true,
-        required: true 
+        required: true,
+        unique: true
     },
     title: { 
         type: String, 

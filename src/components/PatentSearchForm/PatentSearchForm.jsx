@@ -3,8 +3,11 @@ import './PatentSearchForm.css'
 import { useState } from 'react';
 
 import {postPatentId } from '../../utilities/api/patentData';
+import ScrapeResults from '../ScrapeResults/ScrapeResults';
 
 export default function PatentSearchForm() {
+    const [successfulScrapes, setSuccessfulScrapes] = useState([])
+    const [failedScrapes, setFailedScrapes] = useState([])
     // const formReg = /([A-Z|a-z]{2}(\d+)[A-Z|a-z]{1,})/g
     const [formData, setFormData] = useState({})
     const handleChange = (evt) => {
@@ -17,15 +20,21 @@ export default function PatentSearchForm() {
 
     const handleSubmit = async (evt) => {
         evt.preventDefault()
-        // const cleanedFormData = {...formData, patentId: formData.patentId.replaceAll(' ', '')}
-        try {
-            const patentData = await postPatentId(formData)
-            console.log(patentData)
-        } catch (err) {
-            console.log(err)
-            // await updateDocument({classification: null})
+        const patStart = parseInt(formData.patentIdStart)
+        const patEnd = parseInt(formData.patentIdEnd)
+
+        for (let i = patStart; i <= patEnd; i++) {
+            let patNumStr = `US${i}`
+            try {
+                const patentData = await postPatentId({patentId: patNumStr})
+                console.log(patentData)
+                setSuccessfulScrapes((prev) => [...prev, patNumStr])
+            } catch (err) {
+                console.log(err)
+                setFailedScrapes((prev) => [...prev, patNumStr])
+            }
         }
-        console.log(formData)
+
     }
     const disabled = !formData.patentIdEnd || !formData.patentIdStart || (parseInt(formData.patentIdStart) >= parseInt(formData.patentIdEnd))
     
@@ -48,9 +57,9 @@ export default function PatentSearchForm() {
                         <input onChange={handleChange} type="number" name='patentIdEnd' id='patentIdEnd' className='form-control' placeholder='End'/>
                     </div>
                 </form>
-                {/* <input onChange={handleChange} type="text" name='patentId' id='patentId' className='form-control me-2' placeholder='Enter Patent Number / URL'/> */}
                 <button type="submit" form='patentForm' className="submitButton" disabled={disabled}>Submit</button>
             </div>
+            <ScrapeResults successfulScrapes={successfulScrapes} failedScrapes={failedScrapes}/>
         </div>
     )
 }

@@ -23,7 +23,7 @@ const removeOriginalLanguageRegex = /<span class="google-src-text">[\s\S]*?<\/sp
 const getRawPatentData = async (URL) => {
     console.log("Opening the browser......");
     const browser = await puppeteer.launch({
-        headless: false,
+        headless: true,
         args: [
             '--ignore-certificate-errors',
             '--no-sandbox',
@@ -49,7 +49,7 @@ const getRawPatentData = async (URL) => {
     console.log("Closing the browser......");
     await browser.close();
 
-    console.log(cheerio.load(content).html())
+    // console.log(cheerio.load(content).html())
     return cheerio.load(content);
 
 
@@ -100,16 +100,8 @@ const pageData = async (userInput) => {
     // userInput = userInput.replaceAll(' ', '')
     // URL for data
     userInput = userInput.toUpperCase().replaceAll(' ', '')
-        // // This conditional block is to handle US patent numbers that are missing a zero after the first four digits
-        // if (userInput.startsWith('US')) {
-        //     const numbers = userInput.match(/\d+/g)
-        //     if (numbers[0] && numbers[0].length === 10) {
-        //         const numbersArray = numbers[0].split('')
-        //         numbersArray.splice(4, 0, '0')
-        //         userInput = userInput.replace(/\d{3,}/g, numbersArray.join(''))
-        //     }
-        // }
-        const URL = `https://patents.google.com/patent/US${userInput}/en?oq=US${userInput}`;
+        
+        const URL = `https://patents.google.com/patent/${userInput}/en?oq=${userInput}`;
         // const URL = `https://patents.google.com/patent/${userInput}`;
         
         // Parsing the data
