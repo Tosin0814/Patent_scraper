@@ -6,12 +6,17 @@ async function create(req, res, next) {
     try {
         const allPatents = await PatentData.find({})
         const allPatentDocumentNumbers = allPatents.map(patent => patent.documentNumber)
-        if (allPatentDocumentNumbers.includes(req.body.patentId)) {
-            return res.status(400).json('Patent already exists in the database')
-        }
         const data = await pageData.pageData(req.body.patentId)
-        const patent = await PatentData.create(data)
-        res.status(200).json(patent)
+        if (allPatentDocumentNumbers.includes(data.documentNumber)) {
+            // return res.status(400).json('Patent already exists in the database')
+            const patent = await PatentData.findOne({documentNumber: data.documentNumber})
+            patent.classifications = req.body.classifications
+            await patent.save()
+            res.status(200).json(patent)
+        } else {
+            const patent = await PatentData.create(data)
+            res.status(200).json(patent)
+        }
     } catch (error) {
         console.log(error)
         res.status(400).json(error)
