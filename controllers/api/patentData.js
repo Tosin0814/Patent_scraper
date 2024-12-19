@@ -10,7 +10,7 @@ async function create(req, res, next) {
         if (allPatentDocumentNumbers.includes(data.documentNumber)) {
             // return res.status(400).json('Patent already exists in the database')
             const patent = await PatentData.findOne({documentNumber: data.documentNumber})
-            patent.classifications = req.body.classifications
+            patent.classifications = data.classifications
             await patent.save()
             res.status(200).json(patent)
         } else {
