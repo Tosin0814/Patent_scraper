@@ -15,6 +15,9 @@ const patentDataSchema = new Schema({
         trim: true,
         required: true 
     },
+    classifications: {
+        type: Array,
+    },
     applicationNumber: {
         type: String,
     },

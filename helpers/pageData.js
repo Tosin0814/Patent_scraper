@@ -62,6 +62,12 @@ const pageData = async (userInput) => {
         // TITLE
         const title = parsedPageData("[name='DC.title']").attr('content')
 
+        
+        // CLASSIFICATION
+        const rawClassifications = parsedPageData("ul[itemprop='classifications']").text()
+        const listedTrimmedClassifications = rawClassifications.split('\n').filter(Boolean).map((classification) => classification.trim())
+        const classifications = listedTrimmedClassifications.filter((classification) => classification.length > 0)
+
 
         // APPLICATION NUMBER
         const applicationNumber = parsedPageData("[name='citation_patent_application_number']").attr('content')
@@ -180,6 +186,7 @@ const pageData = async (userInput) => {
         return {
             documentNumber: userInput,
             title: title,
+            classifications: classifications,
             applicationNumber: applicationNumber,
             publicationNumber: publicationNumber,
             dateSubmitted: dateSubmitted,
