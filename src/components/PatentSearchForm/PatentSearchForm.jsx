@@ -36,8 +36,8 @@ export default function PatentSearchForm() {
                 console.log(err)
                 setFailedScrapes((prev) => [...prev, patNumStr])
             }
-            // Wait 10 seconds between each scrape
-            await sleep(10000);
+            // Wait 5 seconds between each scrape
+            await sleep(5000);
         }
 
     }
